@@ -1,4 +1,10 @@
 //LEO REMEMBER TO INSTALL THIS ONCE YOU HAVE INTERNET NETWORK CONNECTION BACK! "npm install express-async-handler"
+/* mongodb details
+username:ADMIN
+password:FGBROC
+databasename:contacts-backend 
+
+*/
 const express=require("express");
 const errorHandler=require("./middleware/errorHandler");
 const connectDb = require("./config/dbConnection");
