@@ -37,7 +37,7 @@ const createContact =asyncHandler(async (req,res)=>{
 });
 
 //@desc Get contact
-//@route GET /api/:id 
+//@route GET /api/contacts/:id 
 //@desc access public
 //find the contact by id and return it 
 const getContact =asyncHandler(async (req,res)=>{
@@ -51,7 +51,7 @@ const getContact =asyncHandler(async (req,res)=>{
 });
 
 //@desc update  contact
-//@route PUT /api/contact/:id
+//@route PUT /api/contacts/:id
 //@desc access public
 //find the contact and update the contact and return the updated contact
 const updateContact =asyncHandler(async (req,res)=>{
@@ -70,7 +70,7 @@ const updateContact =asyncHandler(async (req,res)=>{
 });
 
 //@desc delete  contact
-//@route DELETE /api/contact/:id
+//@route DELETE /api/contacts/:id
 //@desc access public
 //finding the contact first and remove it ie. thats the code in short
 const deleteContact = asyncHandler(async(req,res)=>{

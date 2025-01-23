@@ -1,4 +1,6 @@
 //LEO REMEMBER TO INSTALL THIS ONCE YOU HAVE INTERNET NETWORK CONNECTION BACK! "npm install express-async-handler"
+//project stopped at 53:26 ,take note you will focus on aunthentication and protecting your routes
+//npm install express-async-handler
 /* mongodb details
 username:ADMIN
 password:FGBROC
@@ -17,6 +19,7 @@ const dotenv =require("dotenv").config();
 
   app.use(express.json());
   app.use("/api/contacts",require("./routes/contactRoutes"));
+  app.use("/api/users",require("./routes/userRoutes"));
   app.use(errorHandler);
 
   app.listen(port,()=>{
