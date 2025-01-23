@@ -4,13 +4,14 @@
 
 const asyncHandler =require("express-async-handler");
 const Contact=require("../models/contactModel");
+
 //@desc Get all contacts
 //@route Get /api/contacts
 //@desc access private
 //returning of the contacts from the database 
 
 const getContacts= asyncHandler(async(req,res)=>{
-    const contacts=await Contact.find();
+    const contacts=await Contact.find({user_id:req.user.id});
     res.status(200).json(contacts);
 
 });
@@ -60,6 +61,12 @@ const updateContact =asyncHandler(async (req,res)=>{
         res.status(404);
         throw new Error("Contact not Found");
     }
+  //checking if user_id from database of contact is equal to request.user.id
+    if(contact.user_id.toString() !== req.user.id ){
+        res.status(403);
+        throw new Error("User unauthorized to update other contacts ")
+    }
+
     const updatedContact=await Contact.findByIdAndupdate(
         req.params.id,
         req.body,
@@ -79,7 +86,14 @@ const deleteContact = asyncHandler(async(req,res)=>{
         res.status(404);
         throw new Error("Contact not Found");
     }
-    await Contact.remove();
+
+ //checking if user_id from database of contact is equal to request.user.id
+    if(contact.user_id.toString() !==req.user.id ){
+        res.status(403);
+        throw new Error("User unauthorized to delete other contacts ")
+    }
+
+    await Contact.deleteOne({_id:req.params.id});
     res.status(200).json(contact);
   
 });

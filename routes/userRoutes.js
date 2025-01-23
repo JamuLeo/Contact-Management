@@ -1,5 +1,7 @@
 const express= require("express");
 const router =express.Router();
+const validateToken=require("../middleware/validateTokenHandler");
+
 const{registerUser,
     loginUser,
      currentUser}=require("../controllers/userController");
@@ -11,6 +13,7 @@ router.post("/register",registerUser);
 router.post("/login",loginUser);
 
 //router handler to get current user
-router.get("/current",currentUser);
+//this is the only private routes here
+router.get("/current",validateToken,currentUser);
 
 module.exports=router;

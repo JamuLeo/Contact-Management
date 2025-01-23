@@ -6,8 +6,9 @@ const{getContacts,
     updateContact,
     deleteContact
 }=require("../controllers/contactController");
+const validateToken=require("../middleware/validateTokenHandler"); //this is imported to protect routes
 
-
+router.use(validateToken);//making all routes private
 router.route("/").get(getContacts);
 
 router.route("/").post(createContact);
