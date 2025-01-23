@@ -2,7 +2,7 @@
 const asyncHandler =require("express-async-handler");
 const User =require("../models/userModel");
 const bcrypt=require("bcrypt");//for hashing password
-const jwt=require("jsonwebtoken");
+const jwt=require("jsonwebtoken");//for generating access tokens after login
 
 //@desc Register a user 
 //@route POST /api/users/register
@@ -45,7 +45,7 @@ const registerUser= asyncHandler(async(req,res)=>{
     res.status(400);
     throw new Error("User data is not valid");  
  }
-  //res.json({message:"Register the user"});
+  
 });
 
 
@@ -60,8 +60,33 @@ email and they match the ones in our database provide that user
 with access token*/
 const loginUser= asyncHandler(async(req,res)=>{
     //getting email and password from json body header(fetching)
-    
+    const{email,password}= req.body;
+    if(!email || password){
+        res.status(400);
+        throw new Error("All fields are mandatory"); 
+         
+    }
+    //interacting with our User table in our database to match user login record with those in database User table using email as primary key
+    const user=await User.findOne({email});
+    //compare password with hashedpassword
+    if(user && (await bcrypt.compare(password,user.password)) ){
+        //if entered password matches one stored in User table in our database,provide access token
+       const accessToken=jwt.sign({ 
+        //creating access token payload,accesstoken secret defined in .env file but has to be strong enough(auto generate if possible) and expiration period of our token
+        user:{
+            username:user.username,
+            email:user.email,
+            id:user.id,
+        },
 
+       },process.env.ACCESS_TOKEN_SECRET,
+       {expiresIn:"1m"}
+    );
+        res.status(200).json({accessToken});
+    }else{
+      res.status(401);
+      throw new Error("invalid credentials");
+    }
 });
 
 //@desc get current logged user 

@@ -6,7 +6,7 @@ const asyncHandler =require("express-async-handler");
 const Contact=require("../models/contactModel");
 //@desc Get all contacts
 //@route Get /api/contacts
-//@desc access public
+//@desc access private
 //returning of the contacts from the database 
 
 const getContacts= asyncHandler(async(req,res)=>{
@@ -17,7 +17,7 @@ const getContacts= asyncHandler(async(req,res)=>{
 
 //@desc create new contacts
 //@route POST /api/contacts
-//@desc access public
+//@desc access private
 //checking if if the request body consisting of email,name and phone is provided and reurning the created body in json format
 const createContact =asyncHandler(async (req,res)=>{
     console.log("The request body is :",req.body);
@@ -38,7 +38,7 @@ const createContact =asyncHandler(async (req,res)=>{
 
 //@desc Get contact
 //@route GET /api/contacts/:id 
-//@desc access public
+//@desc access private
 //find the contact by id and return it 
 const getContact =asyncHandler(async (req,res)=>{
     const contact=await Contact.findById(req.params.id);
