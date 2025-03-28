@@ -23,5 +23,5 @@ const dotenv =require("dotenv").config();
   app.use(errorHandler);
 
   app.listen(port,()=>{
-    console.log("Server is running on port ${port}");
+    console.log(`Server is running on port ${port}`);
   });
