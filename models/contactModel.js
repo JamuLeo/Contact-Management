@@ -1,34 +1,35 @@
-//this is a schema or table for contacts 
-//the user id associates every user with a specific id as primary key and get only associated routes to that user
-const mongoose=require("mongoose");
+// This is a schema or table for contacts 
+// The user_id associates every user with a specific id as primary key 
+// and retrieves only associated routes for that user
 
-const contactSchema =moongoose.Schema({
-  user_id:{
-    type:mongoose.Schema.Types.objectId,
-    required:true,
-    ref:"User",
-  },
+const mongoose = require("mongoose");
 
-  name:{
-     type:String,
-     required:[true,"please add contact name "],
-  },
+const contactSchema = mongoose.Schema(
+  {
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId, 
+      required: true,
+      ref: "User",
+    },
 
-  email:{
-    type:String,
-    required:[true,"please add contact email "],
-  },
+    name: {
+      type: String,
+      required: [true, "Please add contact name"],
+    },
 
-  phone:{
-    type:String,
-    required:[true,"please add contact phone number "],
+    email: {
+      type: String,
+      required: [true, "Please add contact email"],
+    },
+
+    phone: {
+      type: String,
+      required: [true, "Please add contact phone number"],
+    },
   },
-  
-},
-{
-    timestamps:true,
+  {
+    timestamps: true,
   }
-  ); 
+);
 
-
-  module.exports=mongoose.model("contact",contactSchema);
+module.exports = mongoose.model("Contact", contactSchema); // Fixed model naming
