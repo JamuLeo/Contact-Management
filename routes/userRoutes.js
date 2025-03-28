@@ -1,19 +1,16 @@
-const express= require("express");
-const router =express.Router();
-const validateToken=require("../middleware/validateTokenHandler");
+const express = require("express");
+const router = express.Router();
+const validateToken = require("../middleware/validateTokenHandler");
 
-const{registerUser,
-    loginUser,
-     currentUser}=require("../controllers/userController");
+const { registerUser, loginUser, currentUser } = require("../controllers/userController");
 
-//router handler for registering user
-router.post("/register",registerUser);
+// Route handler for registering a new user
+router.post("/register", registerUser);
 
-//router handler for a user login
-router.post("/login",loginUser);
+// Route handler for user login
+router.post("/login", loginUser);
 
-//router handler to get current user
-//this is the only private routes here
-router.get("/current",validateToken,currentUser);
+// Private route to get the current logged-in user
+router.get("/current", validateToken, currentUser);
 
-module.exports=router;
+module.exports = router;
