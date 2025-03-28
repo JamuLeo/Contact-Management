@@ -1,3 +1,5 @@
+//this contains logic to allow to access only private routes by users 
+
 const asyncHandler =require("express-async-handler");
 const jwt=require("jsonwebtoken");
 

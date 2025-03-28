@@ -9,7 +9,6 @@ const Contact=require("../models/contactModel");
 //@route Get /api/contacts
 //@desc access private
 //returning of the contacts from the database 
-
 const getContacts= asyncHandler(async(req,res)=>{
     const contacts=await Contact.find({user_id:req.user.id});
     res.status(200).json(contacts);
@@ -22,6 +21,7 @@ const getContacts= asyncHandler(async(req,res)=>{
 //checking if if the request body consisting of email,name and phone is provided and reurning the created body in json format
 const createContact =asyncHandler(async (req,res)=>{
     console.log("The request body is :",req.body);
+    //the json request body contains name,email and phone for POST request to create a contact
     const{name,email,phone}=req.body;
     if(!name | !email || !phone){
         res.status(400);
@@ -61,7 +61,8 @@ const updateContact =asyncHandler(async (req,res)=>{
         res.status(404);
         throw new Error("Contact not Found");
     }
-  //checking if user_id from database of contact is equal to request.user.id
+
+  //checking if user_id from database of contact is equal to request.user.id this code is included if there is a auth component
     if(contact.user_id.toString() !== req.user.id ){
         res.status(403);
         throw new Error("User unauthorized to update other contacts ")
@@ -87,7 +88,7 @@ const deleteContact = asyncHandler(async(req,res)=>{
         throw new Error("Contact not Found");
     }
 
- //checking if user_id from database of contact is equal to request.user.id
+ //checking if user_id from database of contact is equal to request.user.id,this code is included if there is auth component
     if(contact.user_id.toString() !==req.user.id ){
         res.status(403);
         throw new Error("User unauthorized to delete other contacts ")
